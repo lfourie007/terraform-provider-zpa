@@ -5,5 +5,5 @@ terraform {
       source = "zscaler/zpa"
       version = "2.2.0"
     }
-  }
+  } 
 }
