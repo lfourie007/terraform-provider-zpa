@@ -7,9 +7,6 @@ terraform {
     }
   }
 }
-// resource "zpa_app_connector" "clydeguru_skytap_key-1636372417036" {
-
-// }
 
 // Create application Segment -dev1
 resource "zpa_application_segment" "dev1_application" {
