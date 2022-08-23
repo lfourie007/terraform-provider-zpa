@@ -5,9 +5,15 @@
 // git commit -a -m "destroy plan again s3"
 // git push
 
-// resource "zpa_app_connector" "clydeguru_skytap_key-1636372417036" {
-
-// }
+# Configure ZPA provider source and version
+terraform {
+  required_providers {
+    zpa = {
+      source = "zscaler/zpa"
+      version = "2.2.0"
+    }
+  }
+}
 
 // Create application Segment -dev1
 resource "zpa_application_segment" "dev1_application" {
