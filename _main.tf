@@ -221,4 +221,4 @@ resource "zpa_policy_access_rule" "dev1" {
       idp_id = data.zpa_idp_controller.user_idp_name.id
     }
   }
-}
+} 
