@@ -15,10 +15,6 @@ terraform {
   }
 }
 
-// resource "zpa_app_connector" "clydeguru_skytap_key-1636372417036" {
-
-// }
-
 // Create application Segment -dev1
 resource "zpa_application_segment" "dev1_application" {
   name             = "dev1 application"
@@ -94,6 +90,8 @@ resource "zpa_application_segment" "dev5_application" {
     id = [zpa_server_group.dev_servers.id]
   }
 }
+
+// *************************** cut ***********************
 // Create Server Group
 resource "zpa_server_group" "dev_servers" {
   name              = "dev Servers"
@@ -127,108 +125,3 @@ resource "zpa_segment_group" "dev_app_group" {
 data "zpa_app_connector_group" "dc_connector_group" {
   name = "clydetwo_skytap_ac1"
 }
-
-//**************** cut ********************
-
-
-// Retrieve Policy Types 
-data "zpa_policy_type" "access_policy" {
-    policy_type = "ACCESS_POLICY"
-}
-
-// Retrieve Policy Types zpa_segment_group
-data "zpa_segment_group" "segment_group" {
-    name = "dev app SG"
-}
-
-//data "zpa_application_segment" "dev1"{
-//  name = "dev1 application"
-//}
-//data "zpa_application_segment" "dev2"{
-//  name = "dev2 application"
-//}
-//data "zpa_application_segment" "dev3"{
-//  name = "dev3 application"
-//}
-//data "zpa_application_segment" "dev4"{
-//  name = "dev4 application"
-//}
-//data "zpa_application_segment" "dev5"{
-//  name = "dev5 application"
-//}
-data "zpa_idp_controller" "user_idp_name" {
- name = "Azure IdP"
-}
-data "zpa_scim_groups" "restricted_internet" {
-  name     = "restricted_internet"
-  idp_name = "Azure IdP"
-}
-resource "zpa_policy_access_rule" "dev1" {
-  name                          = "allow dev segments"
-  description                   = "allow dev segments created by terraform"
-  action                        = "ALLOW"
-  rule_order                     = 7
-  operator = "AND"
-  policy_set_id = data.zpa_policy_type.access_policy.id
-
-  conditions {
-    negated = false
-    operator = "OR"
-    //operands {
-      //name =  "id"
-      //object_type = "APP"
-      //lhs = "id"
-      //rhs = data.zpa_application_segment.dev1.id
-    //}
-    //operands {
-      //name =  "id"
-      //object_type = "APP"
-      //lhs = "id"
-      //rhs = data.zpa_application_segment.dev2.id
-    //}
-    //operands {
-      //name =  "id"
-      //object_type = "APP"
-      //lhs = "id"
-      //rhs = data.zpa_application_segment.dev3.id
-    //}
-    //operands {
-      //name =  "id"
-      //object_type = "APP"
-      //lhs = "id"
-      //rhs = data.zpa_application_segment.dev4.id
-    //}
-    //operands {
-      //name =  "id"
-      //object_type = "APP"
-      //lhs = "id"
-      //rhs = data.zpa_application_segment.dev5.id
-    //}
-     operands {
-      object_type = "APP_GROUP"
-      lhs = "id"
-      rhs = data.zpa_segment_group.segment_group.id
-    }
-  }
-
-  conditions {
-     negated = false
-     operator = "OR"
-    //operands {
-    //  object_type = "IDP"
-    //  lhs = "id"
-    //  rhs = data.zpa_idp_controller.user_idp_name.id
-    //}
-    operands {
-      object_type = "SCIM_GROUP"
-      lhs = data.zpa_idp_controller.user_idp_name.id
-      rhs = data.zpa_scim_groups.restricted_internet.id
-      idp_id = data.zpa_idp_controller.user_idp_name.id
-    }
-  }
-}
-
-
-
-
-     
