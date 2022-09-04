@@ -91,3 +91,4 @@ resource "zpa_application_segment" "dev5_application" {
     id = [zpa_server_group.dev_servers.id]
   }
 }
+ 
