@@ -119,4 +119,4 @@ resource "zpa_segment_group" "dev_app_group" {
 data "zpa_app_connector_group" "dc_connector_group" {
   name = "clydetwo_skytap_ac1"
 }
- 
+  
