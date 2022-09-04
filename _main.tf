@@ -15,7 +15,7 @@ terraform {
   }
 }
 
-
+ 
 // Create application Segment -dev1
 resource "zpa_application_segment" "dev1_application" {
   name             = "dev1 application"
